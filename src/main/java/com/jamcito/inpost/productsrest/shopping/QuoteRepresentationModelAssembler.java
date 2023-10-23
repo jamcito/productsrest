@@ -6,6 +6,8 @@ import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
+import com.jamcito.inpost.productsrest.shopping.model.quote.Quote;
+
 @Component
 class QuoteRepresentationModelAssembler implements RepresentationModelAssembler<Quote, RepresentationModel<Quote>> {
 

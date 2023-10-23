@@ -16,6 +16,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.jamcito.inpost.productsrest.shopping.model.product.DiscountPolicy;
+import com.jamcito.inpost.productsrest.shopping.model.product.Product;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ShoppingServiceTest {

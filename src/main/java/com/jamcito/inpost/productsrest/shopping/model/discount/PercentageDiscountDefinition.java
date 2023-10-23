@@ -1,4 +1,4 @@
-package com.jamcito.inpost.productsrest.shopping;
+package com.jamcito.inpost.productsrest.shopping.model.discount;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

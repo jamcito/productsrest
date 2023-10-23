@@ -1,8 +1,11 @@
-package com.jamcito.inpost.productsrest.shopping;
+package com.jamcito.inpost.productsrest.shopping.model.quote;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+
+import com.jamcito.inpost.productsrest.shopping.model.product.DiscountPolicy;
+import com.jamcito.inpost.productsrest.shopping.model.product.Product;
 
 public class QuoteTest {
     @Test

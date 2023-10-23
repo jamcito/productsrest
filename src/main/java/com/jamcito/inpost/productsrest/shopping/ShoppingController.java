@@ -19,6 +19,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jamcito.inpost.productsrest.shopping.model.discount.CountBasedDiscountDefinition;
+import com.jamcito.inpost.productsrest.shopping.model.discount.PercentageDiscountDefinition;
+import com.jamcito.inpost.productsrest.shopping.model.product.DiscountPolicy;
+import com.jamcito.inpost.productsrest.shopping.model.product.Product;
+import com.jamcito.inpost.productsrest.shopping.model.product.ProductInputDTO;
+import com.jamcito.inpost.productsrest.shopping.model.quote.Quote;
+
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 

@@ -6,6 +6,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.jamcito.inpost.productsrest.shopping.model.product.DiscountPolicy;
+import com.jamcito.inpost.productsrest.shopping.model.product.Product;
+
 @Configuration
 public class ProductLoader {
 

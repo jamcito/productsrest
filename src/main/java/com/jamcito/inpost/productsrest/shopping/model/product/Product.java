@@ -1,4 +1,4 @@
-package com.jamcito.inpost.productsrest.shopping;
+package com.jamcito.inpost.productsrest.shopping.model.product;
 
 import java.util.Objects;
 import java.util.UUID;

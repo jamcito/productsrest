@@ -5,6 +5,10 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import com.jamcito.inpost.productsrest.shopping.model.product.DiscountPolicy;
+import com.jamcito.inpost.productsrest.shopping.model.product.Product;
+import com.jamcito.inpost.productsrest.shopping.model.quote.Quote;
+
 @Service
 public class ShoppingService {
 

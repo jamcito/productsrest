@@ -6,6 +6,8 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
+import com.jamcito.inpost.productsrest.shopping.model.product.Product;
+
 @Component
 class ProductModelAssembler implements RepresentationModelAssembler<Product, EntityModel<Product>> {
 

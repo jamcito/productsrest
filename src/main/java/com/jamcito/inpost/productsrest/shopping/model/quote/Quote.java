@@ -1,8 +1,10 @@
-package com.jamcito.inpost.productsrest.shopping;
+package com.jamcito.inpost.productsrest.shopping.model.quote;
 
 import java.util.UUID;
 
 import org.springframework.hateoas.RepresentationModel;
+
+import com.jamcito.inpost.productsrest.shopping.model.product.Product;
 
 public class Quote extends RepresentationModel<Quote> {
     private UUID productId;
