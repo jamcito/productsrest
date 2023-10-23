@@ -1,8 +1,5 @@
 package com.jamcito.inpost.productsrest.shopping;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -12,20 +9,29 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 @RestController
+@Validated
 public class ShoppingController {
 
     private final ProductModelAssembler productAssembler;
+
     private final QuoteRepresentationModelAssembler quoteAssembler;
+
     private final ShoppingService shoppingService;
 
     ShoppingController(ProductModelAssembler productAssembler, QuoteRepresentationModelAssembler quoteAssembler,
@@ -47,9 +53,9 @@ public class ShoppingController {
     }
 
     @PostMapping("/products")
-    ResponseEntity<EntityModel<Product>> postProduct(@RequestBody Product product) {
-        Product newProduct = shoppingService.createProduct(product.getCount(),
-                product.getBasePriceCents());
+    ResponseEntity<EntityModel<Product>> postProduct(@Valid @RequestBody ProductInputDTO productInputDTO) {
+        Product newProduct = shoppingService.createProduct(productInputDTO.getCount(),
+                productInputDTO.getBasePriceCents());
         EntityModel<Product> entityModel = productAssembler.toModel(newProduct);
 
         return ResponseEntity
@@ -66,32 +72,34 @@ public class ShoppingController {
 
     @GetMapping("/products/{id}/quote")
     ResponseEntity<RepresentationModel<Quote>> getQuote(@PathVariable UUID id,
-            @RequestParam(value = "count", defaultValue = "1") Integer count) {
+            @Min(1) @RequestParam(value = "count", defaultValue = "1") Integer count) {
         Quote quote = shoppingService.getQuote(id, count);
 
         return ResponseEntity.ok(quoteAssembler.toModel(quote));
     }
 
     @PutMapping("/products/{id}")
-    ResponseEntity<EntityModel<Product>> putProduct(@RequestBody Product product, @PathVariable UUID id) {
-        Product newProduct = shoppingService.updateProduct(id, product.getCount(), product.getBasePriceCents());
+    ResponseEntity<EntityModel<Product>> putProduct(@Valid @RequestBody ProductInputDTO productInputDTO,
+            @PathVariable UUID id) {
+        Product product = shoppingService.updateProduct(id, productInputDTO.getCount(),
+                productInputDTO.getBasePriceCents());
 
-        return ResponseEntity.ok(productAssembler.toModel(newProduct));
+        return ResponseEntity.ok(productAssembler.toModel(product));
     }
 
     @PutMapping("/products/{id}/count-discount")
-    ResponseEntity<EntityModel<Product>> putCountDiscount(@RequestBody DiscountDefinition discount,
+    ResponseEntity<EntityModel<Product>> putCountDiscount(@Valid @RequestBody CountBasedDiscountDefinition discount,
             @PathVariable UUID id) {
-        Product product = shoppingService.setDiscount(id, DiscountPolicy.COUNT_BASED, discount.getDiscountFactor());
+        Product product = shoppingService.setDiscount(id, DiscountPolicy.COUNT_BASED, discount.getDiscountAmount());
 
         return ResponseEntity.ok(productAssembler.toModel(product));
     }
 
     @PutMapping("/products/{id}/percentage-discount")
-    ResponseEntity<EntityModel<Product>> putPercentageDiscount(@RequestBody DiscountDefinition discount,
-            @PathVariable UUID id) {
+    ResponseEntity<EntityModel<Product>> putPercentageDiscount(
+            @Valid @RequestBody PercentageDiscountDefinition discount, @PathVariable UUID id) {
         Product product = shoppingService.setDiscount(id, DiscountPolicy.PERCENTAGE,
-                discount.getDiscountFactor());
+                discount.getDiscountPercentage());
 
         return ResponseEntity.ok(productAssembler.toModel(product));
     }
