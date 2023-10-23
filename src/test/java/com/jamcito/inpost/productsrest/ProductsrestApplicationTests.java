@@ -1,13 +1,13 @@
 package com.jamcito.inpost.productsrest;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ProductsrestApplicationTests {
+public class ProductsRESTApplicationTests {
 
 	@Test
-	void contextLoads() {
+	public void contextLoads() {
 	}
 
 }
