@@ -23,7 +23,7 @@ public class ShoppingService {
         return productRepository.save(newProduct);
     }
 
-    public Product updateProduct(UUID id, Integer count, Integer basePriceCents) {   
+    public Product updateProduct(UUID id, Integer count, Integer basePriceCents) {
         return productRepository.findById(id)
                 .map(product -> {
                     product.setCount(count);
@@ -36,6 +36,7 @@ public class ShoppingService {
                     return productRepository.save(newProduct);
                 });
     }
+
     public Product setDiscount(UUID id, DiscountPolicy policy, Integer discountFactor) {
         return productRepository.findById(id)
                 .map(product -> {

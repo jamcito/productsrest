@@ -46,7 +46,7 @@ public class Product {
         return this.discountPolicy;
     }
 
-    public Integer getDiscountFactor(){
+    public Integer getDiscountFactor() {
         return this.discountFactor;
     }
 
@@ -66,7 +66,7 @@ public class Product {
         this.discountPolicy = discountPolicy;
     }
 
-    public void setDiscountFactor(Integer discountFactor){
+    public void setDiscountFactor(Integer discountFactor) {
         this.discountFactor = discountFactor;
     }
 
@@ -91,7 +91,8 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{id=" + this.id + ", count=" + this.count + ", basePriceCents=" + this.basePriceCents + ", discountPolicy="
+        return "Product{id=" + this.id + ", count=" + this.count + ", basePriceCents=" + this.basePriceCents
+                + ", discountPolicy="
                 + this.discountPolicy + ", discountFactor=" + discountFactor + "}";
     }
 }

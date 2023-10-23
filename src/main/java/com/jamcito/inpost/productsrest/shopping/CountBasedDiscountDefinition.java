@@ -5,14 +5,14 @@ import jakarta.validation.constraints.NotNull;
 
 public class CountBasedDiscountDefinition {
     @NotNull
-    @Min(value=0, message="discountAmount must be non-negative")
+    @Min(value = 0, message = "discountAmount must be non-negative")
     private Integer discountAmount;
 
-    public CountBasedDiscountDefinition(Integer discountAmount){
+    public CountBasedDiscountDefinition(Integer discountAmount) {
         this.discountAmount = discountAmount;
     }
 
-    public Integer getDiscountAmount(){
+    public Integer getDiscountAmount() {
         return discountAmount;
     }
 }

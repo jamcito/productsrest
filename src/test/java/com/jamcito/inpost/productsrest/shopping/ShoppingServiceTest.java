@@ -27,7 +27,7 @@ public class ShoppingServiceTest {
     private ShoppingService shoppingService;
 
     @Test
-    public void testUpdateExistingProduct(){
+    public void testUpdateExistingProduct() {
         Product product = new Product(10, 100);
         Mockito.when(productRepository.findById(product.getId())).thenReturn(Optional.of(product));
         Mockito.when(productRepository.save(any())).then(returnsFirstArg());
@@ -37,7 +37,7 @@ public class ShoppingServiceTest {
     }
 
     @Test
-    public void testUpdateProductNewId(){
+    public void testUpdateProductNewId() {
         UUID id = new UUID(1, 2);
 
         Mockito.when(productRepository.findById(id)).thenReturn(Optional.empty());
@@ -50,7 +50,7 @@ public class ShoppingServiceTest {
     }
 
     @Test
-    public void testSetDiscountExistingProduct(){
+    public void testSetDiscountExistingProduct() {
         Product product = new Product(10, 100, DiscountPolicy.COUNT_BASED, 5);
         Mockito.when(productRepository.findById(product.getId())).thenReturn(Optional.of(product));
         Mockito.when(productRepository.save(any())).then(returnsFirstArg());
@@ -59,8 +59,8 @@ public class ShoppingServiceTest {
         assertEquals(new Product(10, 100, DiscountPolicy.PERCENTAGE, 50), newProduct);
     }
 
-    @Test(expected=ProductNotFoundException.class)
-    public void testSetDiscountNewId(){
+    @Test(expected = ProductNotFoundException.class)
+    public void testSetDiscountNewId() {
         UUID id = new UUID(1, 2);
 
         Mockito.when(productRepository.findById(id)).thenReturn(Optional.empty());
