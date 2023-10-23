@@ -70,7 +70,7 @@ public class ShoppingController {
                 .orElseThrow(() -> new ProductNotFoundException(id));
         if (count > product.getCount())
             throw new InsufficientProductCountException(id);
-            
+
         return ResponseEntity.ok(quoteAssembler.toModel(new Quote(product, count)));
     }
 
@@ -79,7 +79,7 @@ public class ShoppingController {
         Product updatedProduct = productRepository.findById(id)
                 .map(oldproduct -> {
                     oldproduct.setCount(product.getCount());
-                    oldproduct.setPrice(product.getPrice());
+                    oldproduct.setBasePriceCents(product.getBasePriceCents());
                     return productRepository.save(oldproduct);
                 })
                 .orElseGet(() -> {

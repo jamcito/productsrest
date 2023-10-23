@@ -17,10 +17,10 @@ public class Quote extends RepresentationModel<Quote> {
         this.count = count;
         switch (product.getPolicy()) {
             case FLAT:
-                this.quote = Math.max(0, (product.getPrice() - DISCOUNT_FACTOR) * count);
+                this.quote = Math.max(0, (product.getBasePriceCents() - DISCOUNT_FACTOR) * count);
                 break;
             case NO_DISCOUNT:
-                this.quote = product.getPrice() * count;
+                this.quote = product.getBasePriceCents() * count;
                 break;
         }
     }

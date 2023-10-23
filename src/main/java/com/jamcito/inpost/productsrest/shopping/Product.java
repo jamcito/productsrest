@@ -12,19 +12,19 @@ public class Product {
 
     private @Id @GeneratedValue UUID id;
     private Integer count;
-    private Integer price;
+    private Integer basePriceCents;
     private DiscountPolicy policy;
 
     public Product() {
     }
 
-    public Product(Integer count, Integer price) {
-        this(count, price, DiscountPolicy.NO_DISCOUNT);
+    public Product(Integer count, Integer basePriceCents) {
+        this(count, basePriceCents, DiscountPolicy.NO_DISCOUNT);
     }
 
-    public Product(Integer count, Integer price, DiscountPolicy policy) {
+    public Product(Integer count, Integer basePriceCents, DiscountPolicy policy) {
         this.count = count;
-        this.price = price;
+        this.basePriceCents = basePriceCents;
         this.policy = policy;
     }
 
@@ -36,8 +36,8 @@ public class Product {
         return this.count;
     }
 
-    public Integer getPrice() {
-        return this.price;
+    public Integer getBasePriceCents() {
+        return this.basePriceCents;
     }
 
     public DiscountPolicy getPolicy() {
@@ -52,8 +52,8 @@ public class Product {
         this.count = count;
     }
 
-    public void setPrice(Integer price) {
-        this.price = price;
+    public void setBasePriceCents(Integer basePriceCents) {
+        this.basePriceCents = basePriceCents;
     }
 
     public void setPolicy(DiscountPolicy policy) {
@@ -69,18 +69,18 @@ public class Product {
         Product product = (Product) o;
         return Objects.equals(this.id, product.id)
                 && Objects.equals(this.count, product.count)
-                && Objects.equals(this.price, product.price)
+                && Objects.equals(this.basePriceCents, product.basePriceCents)
                 && Objects.equals(this.policy, product.policy);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.id, this.count, this.price, this.policy);
+        return Objects.hash(this.id, this.count, this.basePriceCents, this.policy);
     }
 
     @Override
     public String toString() {
-        return "Product{id=" + this.id + ", count=" + this.count + ", price=" + this.price + ", discountPolicy="
+        return "Product{id=" + this.id + ", count=" + this.count + ", basePriceCents=" + this.basePriceCents + ", discountPolicy="
                 + this.policy + "}";
     }
 }
