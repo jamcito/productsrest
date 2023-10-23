@@ -13,19 +13,21 @@ public class Product {
     private @Id @GeneratedValue UUID id;
     private Integer count;
     private Integer basePriceCents;
-    private DiscountPolicy policy;
+    private DiscountPolicy discountPolicy;
+    private Integer discountFactor;
 
     public Product() {
     }
 
     public Product(Integer count, Integer basePriceCents) {
-        this(count, basePriceCents, DiscountPolicy.NO_DISCOUNT);
+        this(count, basePriceCents, DiscountPolicy.COUNT_BASED, 0);
     }
 
-    public Product(Integer count, Integer basePriceCents, DiscountPolicy policy) {
+    public Product(Integer count, Integer basePriceCents, DiscountPolicy policy, Integer discountFactor) {
         this.count = count;
         this.basePriceCents = basePriceCents;
-        this.policy = policy;
+        this.discountPolicy = policy;
+        this.discountFactor = discountFactor;
     }
 
     public UUID getId() {
@@ -40,8 +42,12 @@ public class Product {
         return this.basePriceCents;
     }
 
-    public DiscountPolicy getPolicy() {
-        return this.policy;
+    public DiscountPolicy getDiscountPolicy() {
+        return this.discountPolicy;
+    }
+
+    public Integer getDiscountFactor(){
+        return this.discountFactor;
     }
 
     public void setId(UUID id) {
@@ -56,8 +62,12 @@ public class Product {
         this.basePriceCents = basePriceCents;
     }
 
-    public void setPolicy(DiscountPolicy policy) {
-        this.policy = policy;
+    public void setDiscountPolicy(DiscountPolicy discountPolicy) {
+        this.discountPolicy = discountPolicy;
+    }
+
+    public void setDiscountFactor(Integer discountFactor){
+        this.discountFactor = discountFactor;
     }
 
     @Override
@@ -70,17 +80,18 @@ public class Product {
         return Objects.equals(this.id, product.id)
                 && Objects.equals(this.count, product.count)
                 && Objects.equals(this.basePriceCents, product.basePriceCents)
-                && Objects.equals(this.policy, product.policy);
+                && Objects.equals(this.discountPolicy, product.discountPolicy)
+                && Objects.equals(this.discountFactor, product.discountFactor);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.id, this.count, this.basePriceCents, this.policy);
+        return Objects.hash(this.id, this.count, this.basePriceCents, this.discountPolicy, this.discountFactor);
     }
 
     @Override
     public String toString() {
         return "Product{id=" + this.id + ", count=" + this.count + ", basePriceCents=" + this.basePriceCents + ", discountPolicy="
-                + this.policy + "}";
+                + this.discountPolicy + ", discountFactor=" + discountFactor + "}";
     }
 }

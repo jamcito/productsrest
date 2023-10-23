@@ -9,18 +9,15 @@ public class Quote extends RepresentationModel<Quote> {
     private Integer quoteCents;
     private Integer count;
 
-    //implementation TBD, magic number;
-    private static final Integer DISCOUNT_FACTOR = 10;
-
     public Quote(Product product, Integer count) {
         this.productId = product.getId();
         this.count = count;
-        switch (product.getPolicy()) {
-            case FLAT:
-                this.quoteCents = Math.max(0, (product.getBasePriceCents() - DISCOUNT_FACTOR) * count);
+        switch (product.getDiscountPolicy()) {
+            case COUNT_BASED:
+                this.quoteCents = Math.max(0, (product.getBasePriceCents() - product.getDiscountFactor()) * count);
                 break;
-            case NO_DISCOUNT:
-                this.quoteCents = product.getBasePriceCents() * count;
+            case PERCENTAGE:
+                this.quoteCents = product.getBasePriceCents() * count * (100 - product.getDiscountFactor()) / 100;
                 break;
         }
     }

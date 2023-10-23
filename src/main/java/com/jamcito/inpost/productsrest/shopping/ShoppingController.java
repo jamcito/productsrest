@@ -89,6 +89,33 @@ public class ShoppingController {
         return ResponseEntity.ok(productAssembler.toModel(updatedProduct));
     }
 
+
+    @PutMapping("/products/{id}/count-discount")
+    ResponseEntity<EntityModel<Product>> putCountDiscount(@RequestBody DiscountDefinition discount, @PathVariable UUID id) {
+        Product updatedProduct = productRepository.findById(id)
+                    .map(product -> {
+                        product.setDiscountPolicy(DiscountPolicy.COUNT_BASED);
+                        product.setDiscountFactor(discount.getDiscountFactor());
+                        return productRepository.save(product);
+                    })
+                    .orElseThrow(() -> new ProductNotFoundException(id));
+
+        return ResponseEntity.ok(productAssembler.toModel(updatedProduct));
+    }
+
+    @PutMapping("/products/{id}/percentage-discount")
+    ResponseEntity<EntityModel<Product>> putPercentageDiscount(@RequestBody DiscountDefinition discount, @PathVariable UUID id) {
+        Product updatedProduct = productRepository.findById(id)
+                    .map(product -> {
+                        product.setDiscountPolicy(DiscountPolicy.PERCENTAGE);
+                        product.setDiscountFactor(discount.getDiscountFactor());
+                        return productRepository.save(product);
+                    })
+                    .orElseThrow(() -> new ProductNotFoundException(id));
+
+        return ResponseEntity.ok(productAssembler.toModel(updatedProduct));
+    }
+
     @DeleteMapping("/products/{id}")
     void deleteProduct(@PathVariable UUID id) {
         productRepository.deleteById(id);
