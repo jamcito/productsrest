@@ -10,12 +10,14 @@ import java.util.stream.Collectors;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
+import org.springframework.hateoas.RepresentationModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
@@ -23,10 +25,13 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 public class ShoppingController {
 
     private final ProductModelAssembler productAssembler;
+    private final QuoteRepresentationModelAssembler quoteAssembler;
     private final ProductRepository productRepository;
 
-    ShoppingController(ProductModelAssembler productAssembler, ProductRepository productRepository) {
+    ShoppingController(ProductModelAssembler productAssembler, QuoteRepresentationModelAssembler quoteAssembler,
+            ProductRepository productRepository) {
         this.productAssembler = productAssembler;
+        this.quoteAssembler = quoteAssembler;
         this.productRepository = productRepository;
     }
 
@@ -56,6 +61,17 @@ public class ShoppingController {
                 .orElseThrow(() -> new ProductNotFoundException(id));
 
         return ResponseEntity.ok(productAssembler.toModel(product));
+    }
+
+    @GetMapping("/products/{id}/quote")
+    ResponseEntity<RepresentationModel<Quote>> getQuote(@PathVariable UUID id,
+            @RequestParam(value = "count", defaultValue = "1") Integer count) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ProductNotFoundException(id));
+        if (count > product.getCount())
+            throw new InsufficientProductCountException(id);
+            
+        return ResponseEntity.ok(quoteAssembler.toModel(new Quote(product, count)));
     }
 
     @PutMapping("/products/{id}")
