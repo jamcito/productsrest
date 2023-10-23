@@ -18,7 +18,7 @@ This will run the application and expose the API on port `8080`.
 
 ### GET /products
 
-List All products in the system.
+GET All products in the system.
 ```
 curl --request GET \
   --url http://127.0.0.1:8080/products \
@@ -26,7 +26,7 @@ curl --request GET \
 ```
 
 ### GET /products/{id}
-GET product by ID
+GET product by ID.
 ```
 curl --request GET \
   --url http://127.0.0.1:8080/products/3fdc495c-bd42-411f-86f6-10424e08c31e \
@@ -34,6 +34,7 @@ curl --request GET \
 ```
 
 ### DELETE /products/{id}
+DELETE a product by ID.
 ```
 curl --request DELETE \
   --url http://127.0.0.1:8080/products/f6caf768-a5b0-4f6e-a228-bca49e49bb0a \
@@ -41,6 +42,7 @@ curl --request DELETE \
 ```
 
 ### POST /products
+POST a new product.
 ```
 curl --request POST \
   --url http://127.0.0.1:8080/products \
@@ -53,6 +55,7 @@ curl --request POST \
 ```
 
 ### PUT /products/{id}
+PUT an update to an existing produt by ID.
 ```
 curl --request PUT \
   --url http://127.0.0.1:8080/products/f6caf768-a5b0-4f6e-a228-bca49e49bb0a \
@@ -65,6 +68,7 @@ curl --request PUT \
 ```
 
 ### GET /products/{id}/quote
+GET a price quote of a product.
 ```
 curl --request GET \
   --url 'http://127.0.0.1:8080/products/fc2f2e55-4295-42ef-934f-bd947d96b550/quote?count=2' \
@@ -72,6 +76,7 @@ curl --request GET \
 ```
 
 ### PUT /products/{id}/percentage-discount
+PUT a percentage discount on top of an existing product by ID.
 ```
 curl --request PUT \
   --url http://127.0.0.1:8080/products/fc2f2e55-4295-42ef-934f-bd947d96b550/percentage-discount \
@@ -81,6 +86,7 @@ curl --request PUT \
 ```
 
 ### PUT /products/{id}/count-discount
+PUT a count based discount on top of an existing product by ID.
 ```
 curl --request PUT \
   --url http://127.0.0.1:8080/products/24907f68-0a8c-4d80-a585-4e23ff6b1311/count-discount \
