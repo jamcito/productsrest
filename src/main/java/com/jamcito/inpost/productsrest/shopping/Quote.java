@@ -6,7 +6,7 @@ import org.springframework.hateoas.RepresentationModel;
 
 public class Quote extends RepresentationModel<Quote> {
     private UUID productId;
-    private Integer quote;
+    private Integer quoteCents;
     private Integer count;
 
     //implementation TBD, magic number;
@@ -17,10 +17,10 @@ public class Quote extends RepresentationModel<Quote> {
         this.count = count;
         switch (product.getPolicy()) {
             case FLAT:
-                this.quote = Math.max(0, (product.getBasePriceCents() - DISCOUNT_FACTOR) * count);
+                this.quoteCents = Math.max(0, (product.getBasePriceCents() - DISCOUNT_FACTOR) * count);
                 break;
             case NO_DISCOUNT:
-                this.quote = product.getBasePriceCents() * count;
+                this.quoteCents = product.getBasePriceCents() * count;
                 break;
         }
     }
@@ -29,8 +29,8 @@ public class Quote extends RepresentationModel<Quote> {
         return productId;
     }
 
-    public Integer getQuote() {
-        return quote;
+    public Integer getQuoteCents() {
+        return quoteCents;
     }
 
     public Integer getCount() {
